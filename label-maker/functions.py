@@ -26,8 +26,6 @@ def label_images(images_folder, crop_folder, label_folder, relative=False):
 
         # For each crop
         for crop_file in crop_files:
-            print("\t" + os.path.basename(crop_file))
-
             class_id = crop_file.split(".")[-3]
 
             # Find the crop position in the image
