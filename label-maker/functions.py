@@ -13,11 +13,9 @@ def label_images(images_folder, crop_folder, label_folder, relative=False):
     # For each file in the images_file slist
     for image_file in tqdm(image_files):
         image_filename = os.path.basename(image_file)
-        print(image_filename)
 
         # Find the crops corresponding to that image
         file_filter = os.path.join(crop_folder, image_filename[:-4] + '.*.*.jpg')
-        print("filter:", file_filter)
         crop_files = glob.glob(file_filter)
 
         label_filename = os.path.join(label_folder, image_filename[:-4] + '.txt')
