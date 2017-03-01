@@ -1,0 +1,38 @@
+{
+  "0": {
+    "name": "cruce"
+  },
+  "1": {
+    "name": "empalme"
+  },
+  "2": {
+    "name": "contramano"
+  },
+  "3": {
+    "name": "curva-izq"
+  },
+  "4": {
+    "name": "curva-der"
+  },
+  "5": {
+    "name": "ceda-el-paso"
+  },
+  "6": {
+    "name": "max-30"
+  },
+  "7": {
+    "name": "max-40"
+  },
+  "8": {
+    "name": "max-60"
+  },
+  "9": {
+    "name": "max-80"
+  },
+  "10": {
+    "name": "no-girar-izq"
+  },
+  "11": {
+    "name": "no-girar-der"
+  }
+}
