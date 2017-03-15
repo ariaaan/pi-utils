@@ -113,7 +113,7 @@ def saturation(image_path, output_folder, saturation):
     cv2.imwrite(output_path, new_image)
 
 
-def brightness(image_path, output_folder, level):
+def brightness(image_path, output_folder, level, name="bri"):
     image = cv2.imread(image_path)
     height, width, _ = image.shape
 
@@ -129,7 +129,7 @@ def brightness(image_path, output_folder, level):
     new_image = cv2.cvtColor(new_image.astype("uint8"), cv2.COLOR_HSV2BGR)
 
     filename = os.path.basename(image_path)
-    output_path = os.path.join(output_folder, filename[:-4] + ".bri.jpg")
+    output_path = os.path.join(output_folder, filename[:-4] + "." + name +".jpg")
 
     cv2.imwrite(output_path, new_image)
 
@@ -141,6 +141,14 @@ if __name__ == "__main__":
     parser.add_argument('input_folder', help='path for the input folder')
     parser.add_argument('output_folder', help='path for the output folder')
 
+    parser.add_argument('-mv', '--mirror-vertical', action='store_true', help='mirror vertical')
+    parser.add_argument('-mh', '--mirror-horizontal', action='store_true', help='mirror horizontal')
+    parser.add_argument('-r90', '--rotate-90', action='store_true', help='rotate 90 degrees')
+    parser.add_argument('-r180', '--rotate-180', action='store_true', help='rotate 180 degrees')
+    parser.add_argument('-r270', '--rotate-270', action='store_true', help='rotate 270 degrees')
+    parser.add_argument('-b', '--brighten', action='store_true', help='brighten')
+    parser.add_argument('-d', '--darken', action='store_true', help='darken')
+
     args = parser.parse_args()
 
     # Augmentate the data in the input folder
@@ -148,10 +156,24 @@ if __name__ == "__main__":
     image_files = glob.glob(os.path.join(args.input_folder, file_filter))
 
     for image_file in image_files:
-        #mirror_horizontal(image_file, args.output_folder)
-        #mirror_vertical(image_file, args.output_folder)
-        #rotate_90(image_file, args.output_folder)
-        #rotate_180(image_file, args.output_folder)
-        #rotate_270(image_file, args.output_folder)
-        #saturation(image_file, args.output_folder, 0.5)
-        brightness(image_file, args.output_folder, 0.5)
+
+        if args.mirror_vertical:
+            mirror_horizontal(image_file, args.output_folder)
+
+        if args.mirror_horizontal:
+            mirror_vertical(image_file, args.output_folder)
+
+        if args.rotate_90:
+            rotate_90(image_file, args.output_folder)
+
+        if args.rotate_180:
+            rotate_180(image_file, args.output_folder)
+
+        if args.rotate_270:
+            rotate_270(image_file, args.output_folder)
+
+        if args.brighten:
+            brightness(image_file, args.output_folder, 2.0, name="bri")
+
+        if args.darken:
+            brightness(image_file, args.output_folder, 0.5, name="dark")
