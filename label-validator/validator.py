@@ -1,4 +1,5 @@
 import os
+import sys
 import cv2
 import glob
 import json
@@ -97,8 +98,11 @@ if __name__ == "__main__":
     image_files = glob.glob(os.path.join(args.image_folder, file_filter))
 
     for image_file in tqdm(image_files):
-        image_path = image_file
-        label_path = os.path.join(args.label_folder, os.path.basename(image_file)[:-4] + ".txt")
-        output_path = os.path.join(args.output_folder, os.path.basename(image_file))
+        try:
+            image_path = image_file
+            label_path = os.path.join(args.label_folder, os.path.basename(image_file)[:-4] + ".txt")
+            output_path = os.path.join(args.output_folder, os.path.basename(image_file))
 
-        create_bb(image_path, label_path, output_path, relative=args.relative)
+            create_bb(image_path, label_path, output_path, relative=args.relative)
+        except:
+            print("No label found.")
