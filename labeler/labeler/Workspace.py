@@ -72,6 +72,7 @@ class Scene(QGraphicsScene):
 
     def saveLabels(self):
         if self._label_path != None:
+            self._label_path = self._label_path[:-8] + ".txt"
             lf = QSaveFile(self._label_path)
             if not lf.open(QIODevice.WriteOnly | QIODevice.Text):
                 raise IOError('Cannot open "{}" for writing'.format(self._label_path))
@@ -151,7 +152,7 @@ class Scene(QGraphicsScene):
     def loadImage(self, image_path, label_path):
         self.clear()
         self._image = QPixmap(image_path)
-        self._label_path = label_path
+        self._label_path = label_path[:-8] + ".txt"
         self.setSceneRect(QRectF(self._image.rect()))
         self.addPixmap(self._image)
         lines = []
