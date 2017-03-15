@@ -71,6 +71,69 @@ def rotate_270(image_path, output_folder):
     cv2.imwrite(output_path, new_image)
 
 
+def saturation(image_path, output_folder, saturation):
+    image = cv2.imread(image_path)
+    height, width, _ = image.shape
+
+    new_image = image.copy()
+    new_image = cv2.cvtColor(new_image, cv2.COLOR_BGR2HSV).astype("float32")
+
+    (h, s, v) = cv2.split(new_image)
+    s = s * saturation
+    s = np.clip(s, 0, 255)
+
+    new_image = cv2.merge([h, s, v])
+
+    new_image = cv2.cvtColor(new_image.astype("uint8"), cv2.COLOR_HSV2BGR)
+
+    filename = os.path.basename(image_path)
+    output_path = os.path.join(output_folder, filename[:-4] + ".sat.jpg")
+
+    cv2.imwrite(output_path, new_image)
+
+
+def saturation(image_path, output_folder, saturation):
+    image = cv2.imread(image_path)
+    height, width, _ = image.shape
+
+    new_image = image.copy()
+    new_image = cv2.cvtColor(new_image, cv2.COLOR_BGR2HSV).astype("float32")
+
+    (h, s, v) = cv2.split(new_image)
+    s = s * saturation
+    s = np.clip(s, 0, 255)
+
+    new_image = cv2.merge([h, s, v])
+
+    new_image = cv2.cvtColor(new_image.astype("uint8"), cv2.COLOR_HSV2BGR)
+
+    filename = os.path.basename(image_path)
+    output_path = os.path.join(output_folder, filename[:-4] + ".sat.jpg")
+
+    cv2.imwrite(output_path, new_image)
+
+
+def brightness(image_path, output_folder, level):
+    image = cv2.imread(image_path)
+    height, width, _ = image.shape
+
+    new_image = image.copy()
+    new_image = cv2.cvtColor(new_image, cv2.COLOR_BGR2HSV).astype("float32")
+
+    (h, s, v) = cv2.split(new_image)
+    v = v * level
+    v = np.clip(v, 0, 255)
+
+    new_image = cv2.merge([h, s, v])
+
+    new_image = cv2.cvtColor(new_image.astype("uint8"), cv2.COLOR_HSV2BGR)
+
+    filename = os.path.basename(image_path)
+    output_path = os.path.join(output_folder, filename[:-4] + ".bri.jpg")
+
+    cv2.imwrite(output_path, new_image)
+
+
 if __name__ == "__main__":
     # Parse arguments
     parser = argparse.ArgumentParser(description='data-augmentator')
@@ -85,8 +148,10 @@ if __name__ == "__main__":
     image_files = glob.glob(os.path.join(args.input_folder, file_filter))
 
     for image_file in image_files:
-        mirror_horizontal(image_file, args.output_folder)
-        mirror_vertical(image_file, args.output_folder)
-        rotate_90(image_file, args.output_folder)
-        rotate_180(image_file, args.output_folder)
-        rotate_270(image_file, args.output_folder)
+        #mirror_horizontal(image_file, args.output_folder)
+        #mirror_vertical(image_file, args.output_folder)
+        #rotate_90(image_file, args.output_folder)
+        #rotate_180(image_file, args.output_folder)
+        #rotate_270(image_file, args.output_folder)
+        #saturation(image_file, args.output_folder, 0.5)
+        brightness(image_file, args.output_folder, 0.5)
