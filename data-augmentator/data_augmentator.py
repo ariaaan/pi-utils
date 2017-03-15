@@ -3,6 +3,15 @@ import cv2
 import glob
 import argparse
 import numpy as np
+from shutil import copyfile
+
+
+def copy_label(original_image_path, modified_image_path):
+    original_label_path = original_image_path[:-4] + ".txt"
+    modified_label_path = modified_image_path[:-4] + ".txt"
+
+    if os.path.isfile(original_label_path):
+        copyfile(original_label_path, modified_label_path)
 
 
 def mirror_horizontal(image_path, output_folder):
@@ -133,6 +142,8 @@ def brightness(image_path, output_folder, level, name="bri"):
 
     cv2.imwrite(output_path, new_image)
 
+    copy_label(image_path, output_path)
+
 
 if __name__ == "__main__":
     # Parse arguments
@@ -158,10 +169,10 @@ if __name__ == "__main__":
     for image_file in image_files:
 
         if args.mirror_vertical:
-            mirror_horizontal(image_file, args.output_folder)
+            mirror_vertical(image_file, args.output_folder)
 
         if args.mirror_horizontal:
-            mirror_vertical(image_file, args.output_folder)
+            mirror_horizontal(image_file, args.output_folder)
 
         if args.rotate_90:
             rotate_90(image_file, args.output_folder)
