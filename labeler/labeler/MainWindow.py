@@ -111,7 +111,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle('labeler - You Only Show Once')
+        self.setWindowTitle('YOLO Labeler')
         self.resize(800, 600)
         self.move(qApp.desktop().availableGeometry().center() - self.frameGeometry().center())
 
