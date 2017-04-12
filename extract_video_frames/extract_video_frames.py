@@ -1,7 +1,9 @@
 import os
+import sys
 import cv2
 import glob
 import argparse
+from tqdm import tqdm
 
 
 # Parse arguments
@@ -23,10 +25,12 @@ if not os.path.isfile(args.input_file) or not os.path.isdir(args.output_folder):
 FRAME_FORMAT = '{:06d}.jpg'
 
 cap = cv2.VideoCapture(args.input_file)
+frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
-count = 0
-
-while cap.isOpened():
+for i in tqdm(range(frames)):
     ret, frame = cap.read()
-    cv2.imwrite(os.path.join(args.output_folder, FRAME_FORMAT.format(count)), frame)
-    count += 1
+
+    if not ret:
+        break
+
+    cv2.imwrite(os.path.join(args.output_folder, FRAME_FORMAT.format(i)), frame)
