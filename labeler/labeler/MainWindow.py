@@ -2,6 +2,7 @@ from os import makedirs
 from os.path import basename
 import errno
 
+from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import QDir, QDirIterator, QItemSelectionModel, Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import ( QAction, QComboBox, QFileDialog,
@@ -130,12 +131,16 @@ class MainWindow(QMainWindow):
         self._prev_image_action.setShortcut('A')
         self._prev_image_action.setStatusTip('Show previous image')
         self._prev_image_action.triggered.connect(self.prevImage)
+        shortcut_prev = QtWidgets.QShortcut(QtGui.QKeySequence('F1'), self)
+        shortcut_prev.activated.connect(self.prevImage)
 
         self._next_image_action = QAction('Next (&D)', self)
         self._next_image_action.setEnabled(False)
         self._next_image_action.setShortcut('D')
         self._next_image_action.setStatusTip('Show next image')
         self._next_image_action.triggered.connect(self.nextImage)
+        shortcut_next = QtWidgets.QShortcut(QtGui.QKeySequence('F2'), self)
+        shortcut_next.activated.connect(self.nextImage)
 
         menubar = self.menuBar()
 
