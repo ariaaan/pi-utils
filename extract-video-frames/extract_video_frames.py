@@ -22,7 +22,7 @@ if not os.path.isfile(args.input_file) or not os.path.isdir(args.output_folder):
 
 
 # Main
-FRAME_FORMAT = '{:06d}.jpg'
+FRAME_FORMAT = os.path.basename(args.input_file)[:-4] + '-{:06d}.jpg'
 
 cap = cv2.VideoCapture(args.input_file)
 frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
