@@ -43,6 +43,22 @@ def mirror_vertical(image_path, output_folder):
 
     cv2.imwrite(output_path, new_image)
 
+    labels = open(image_path[:-4] + '.txt').read().strip().split('\n')
+
+    new_label = ''
+
+    for label in labels:
+        label = label.split()
+        label[1] = str(1 - float(label[1]))
+
+        label = ' '.join(label)
+        new_label += label
+        new_label += '\n'
+
+    output_label_path = output_path[:-4] + '.txt'
+    output_label_file = open(output_label_path, 'w')
+    output_label_file.write(new_label)
+
 
 def rotate_90(image_path, output_folder):
     image = cv2.imread(image_path)
