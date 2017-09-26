@@ -28,12 +28,13 @@ for image in tqdm(image_files):
         label = label.split()
 
         try:
-            if int(label[0]) == args.source_class:
-                label[0] = str(args.dest_class)
+            #if int(label[0]) == args.source_class:
+            label[0] = str(args.dest_class)
         except Exception as e:
             print(e)
 
         new_label += ' '.join(label)
+        new_label += '\n'
 
     labels = open(label_file, 'w')
     labels.write(new_label)
